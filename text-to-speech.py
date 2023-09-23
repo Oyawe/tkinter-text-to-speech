@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 from tkinter.ttk import Combobox
-import pyttsx3
+from gtts import gTTS
+
 import os
 
 root = Tk()
@@ -10,6 +11,18 @@ root.title("Text to speech")
 root.geometry("900x450+100+100")
 root.resizable(False, False)
 root.configure(bg="#1662b4")
+
+
+def speaknow():
+    text = text_area.get(1.0, END)
+
+    if text:
+        tts = gTTS(text)
+        tts.save("output.mp3")  # Save the text as an MP3 file
+
+        # Use macOS's built-in "afplay" command to play the MP3 file
+        os.system("afplay output.mp3")
+
 
 # icon
 image_icon = PhotoImage(file="speak.png")
@@ -29,27 +42,8 @@ text_area = Text(root, font="arial 20", bg="white",
                  fg="black", relief=GROOVE, wrap=WORD)
 text_area.place(x=10, y=150, width=500, height=250)
 
-Label(root, text="Voice", font="arial 20 bold",
-      bg="#1662b4", fg="white").place(x=580, y=160)
-Label(root, text="Speed", font="arial 20 bold",
-      bg="#1662b4", fg="white").place(x=760, y=160)
-
-gender_combo = Combobox(
-    root, values=["Male", "Female"], font="arial 14", state='r', width=10)
-gender_combo.place(x=550, y=200)
-gender_combo.set("Male")
-
-speed_combo = Combobox(
-    root, values=["Fast", "Normal", "Slow"], font="arial 14", state='r', width=10)
-speed_combo.place(x=730, y=200)
-speed_combo.set("Normal")
-
-btn = Button(root, text="Speak", width=10,
+btn = Button(root, text="Speak", width=20,
              font="arial 14 bold", command=speaknow)
-btn.place(x=550, y=280)
-
-save = Button(root, text="Save", width=10,
-              font="arial 14 bold", command=download)
-save.place(x=730, y=280)
+btn.place(x=600, y=250)
 
 root.mainloop()
