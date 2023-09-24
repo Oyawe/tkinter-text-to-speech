@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter.ttk import Combobox
 from gtts import gTTS
-
+# from gtts import gTTS
 import os
 
 root = Tk()
